@@ -28,9 +28,8 @@ public class BuscadorDePalavraChaveService {
 
             for (String palavra : palavrasChave) {
                 for (String palavraDoCache: map.keySet()) {
-                    if (palavra.equals(palavraDoCache)) {
-                        recomendacaoArquivo.adicionarOcorrencia(map.get(palavraDoCache));
-                    } else if (palavraService.calcularSimilaridadeEntrePalavras(palavra, palavraDoCache) > porcentagemMinimaParaMatch) {
+                    if (palavra.equals(palavraDoCache)
+                            || palavraService.calcularSimilaridadeEntrePalavras(palavra, palavraDoCache) > porcentagemMinimaParaMatch) {
                         recomendacaoArquivo.adicionarOcorrencia(map.get(palavraDoCache));
                     }
                 }
@@ -39,12 +38,10 @@ public class BuscadorDePalavraChaveService {
             res.add(recomendacaoArquivo);
         }
 
-        res.sort(Comparator.naturalOrder());
-
-        if (res.size() > 5) {
-            return res.subList(0, 5);
-        }
-
-        return res;
+        return res.stream()
+                .filter(recomendacaoArquivo -> recomendacaoArquivo.getOcorrenciasDePalavrasChave() > 0)
+                .sorted(Comparator.comparingLong(RecomendacaoArquivo::getOcorrenciasDePalavrasChave).reversed())
+                .limit(5)
+                .toList();
     }
 }

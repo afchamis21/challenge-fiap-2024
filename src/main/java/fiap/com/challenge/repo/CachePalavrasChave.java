@@ -27,6 +27,11 @@ public class CachePalavrasChave {
         this.palavraService = palavraService;
     }
 
+    /**
+     * Inicializa cache com as palavras-chave de cada arquivo.
+     * Este método roda apenas na inicialização da aplicação,
+     * para não ter que ler todos os arquivos inteiros em cada pesquisa e impactar o desempenho
+     * */
     @PostConstruct
     void inicializarCache() {
         log.info("Inicializando cache...");

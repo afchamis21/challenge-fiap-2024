@@ -29,6 +29,8 @@ public class PalavraService {
         for (int i = 0; i < menorPalavra.length(); i++) {
             if (menorPalavra.charAt(i) == maiorPalavra.charAt(i)) {
                 contador++;
+            } else {
+                break;
             }
         }
 
