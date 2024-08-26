@@ -2,10 +2,7 @@ package fiap.com.challenge.controllers;
 
 import fiap.com.challenge.model.RecomendacaoArquivo;
 import fiap.com.challenge.services.BuscadorDePalavraChaveService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +15,7 @@ public class RecomendacaoController {
         this.buscadorDePalavraChaveService = buscadorDePalavraChaveService;
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("modelo")
     public List<RecomendacaoArquivo> pesquisarMelhoresModelos(@RequestParam String frase) {
         return buscadorDePalavraChaveService.procurarMelhoresModelos(frase);

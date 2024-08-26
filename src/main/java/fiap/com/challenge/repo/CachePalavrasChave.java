@@ -38,7 +38,7 @@ public class CachePalavrasChave {
         try {
             File[] arquivos = arquivoService.pegarTodosOsModelos();
             for (File arquivo : arquivos) {
-                String nomeArquivo = arquivo.getName();
+                String nomeArquivo = arquivo.getName().split("\\.")[0];
                 ConcurrentHashMap<String, Long> palavrasArquivo = new ConcurrentHashMap<>();
                 List<String> linhas = Files.readAllLines(arquivo.toPath()).stream().map(String::toLowerCase).toList();
                 for (String linha : linhas) {
